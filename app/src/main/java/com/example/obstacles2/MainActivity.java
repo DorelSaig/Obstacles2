@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final int MAX_LIVES = 4;
     private final int NUM_OF_COLUMNS = 3;
-    private final int NUM_OF_OBSTACLE_TYPES = 2;
+    private final int NUM_OF_OBSTACLE_TYPES = 3;
 
 
     private ImageView[][] path;
@@ -67,10 +67,9 @@ public class MainActivity extends AppCompatActivity {
     private void startUI() {
         timer = new Timer();
 
-        randChoose = (int) Math.floor(Math.random()*NUM_OF_OBSTACLE_TYPES);
-        columnChoose = (int) Math.floor(Math.random()*NUM_OF_COLUMNS);
 
-        setImage(randChoose, columnChoose);
+
+
 
         path[0][columnChoose].setVisibility(View.VISIBLE);
 
@@ -82,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
+                        randChoose = (int) Math.floor(Math.random()*NUM_OF_OBSTACLE_TYPES);
+                        columnChoose = (int) Math.floor(Math.random()*NUM_OF_COLUMNS);
+                        setImage(randChoose, columnChoose);
                         update_UI_logic(columnChoose);
 
                     }
@@ -93,27 +95,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void update_UI_logic(int columnC) {
 
-        if(i<4){
-            path[i][columnC].setVisibility(View.INVISIBLE);
-            path[i+1][columnC].setVisibility(View.VISIBLE);
-            i++;
-        } else {
-            if(current==columnC){
-                vibrate(3000);
-                lives--;
-                panel_IMG_engines[lives].setVisibility(View.INVISIBLE);
-                if(lives==0){
-                    gameOver();
-                }
-            }
-
-            path[4][columnC].setVisibility(View.INVISIBLE);
-            columnC = (int) Math.floor(Math.random()*NUM_OF_COLUMNS);
-            randChoose = (int) Math.floor(Math.random()*NUM_OF_OBSTACLE_TYPES);
-            setImage(randChoose, columnC);
-            i=0;
-            path[0][columnC].setVisibility(View.VISIBLE);
-        }
+//        if(i<4){
+//            path[i][columnC].setVisibility(View.INVISIBLE);
+//            path[i+1][columnC].setVisibility(View.VISIBLE);
+//            i++;
+//        } else {
+//            if(current==columnC){
+//                vibrate(3000);
+//                lives--;
+//                panel_IMG_engines[lives].setVisibility(View.INVISIBLE);
+//                if(lives==0){
+//                    gameOver();
+//                }
+//            }
+//
+//            path[4][columnC].setVisibility(View.INVISIBLE);
+//            i=0;
+//        }
 
     }
 
@@ -150,10 +148,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setImage(int imageNum, int columnChoose) {
-        if(imageNum == 0)
-            path[0][columnChoose].setImageResource(R.drawable.ic_seagull);
-        else if (imageNum == 1)
-            path[0][columnChoose].setImageResource(R.drawable.ic_engine);
+        if(imageNum == 0) {
+            for (int i = 0; i < path.length; i++) {
+                path[i][columnChoose].setImageResource(R.drawable.ic_seagull);
+            }
+            path[0][columnChoose].setVisibility(View.VISIBLE);
+        }
+
+        else if (imageNum == 1) {
+            for (int i = 0; i < path.length; i++) {
+                path[i][columnChoose].setImageResource(R.drawable.ic_engine);
+            }
+            path[0][columnChoose].setVisibility(View.VISIBLE);
+        } else
+            path[0][columnChoose].setVisibility(View.INVISIBLE);
     }
 
     private void initButtons() {
