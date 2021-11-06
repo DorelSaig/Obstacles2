@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ImageView[][] path;
+    private int[][] vals;
     private ImageButton panel_BTN_Right;
     private ImageButton panel_BTN_Left;
     private ImageView[] panel_IMG_engines;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private int lives = MAX_LIVES;
 
     private Timer timer = new Timer();
-    int randChoose;
+    int obsChoose;
     int columnChoose;
 
     @Override
@@ -43,8 +46,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ImageView panel_IMG_background = findViewById(R.id.panel_IMG_background);
+        Glide
+                .with(this)
+                .load(R.drawable.skybackground)
+                .centerCrop()
+                .into(panel_IMG_background);
+
         findViews();
         initButtons();
+
+        for (int i = 0; i < vals.length; i++) {
+            for (int j = 0; j < vals[i].length; j++) {
+                vals[i][j] = 0;
+            }
+        }
 
     }
 
@@ -81,38 +97,76 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        randChoose = (int) Math.floor(Math.random()*NUM_OF_OBSTACLE_TYPES);
-                        columnChoose = (int) Math.floor(Math.random()*NUM_OF_COLUMNS);
-                        setImage(randChoose, columnChoose);
-                        update_UI_logic(columnChoose);
+                        logic();
+                        collisionCheck();
 
                     }
                 });
             }
-        }, 0, 500);
+        }, 0, 1000);
 
     }
 
-    private void update_UI_logic(int columnC) {
+    private void collisionCheck() {
+        if (vals[4][current] == 1) {
+            vibrate(3000);
+            Toast.makeText(getApplicationContext(),"Engine "+lives+ " Down ",Toast.LENGTH_LONG).show();
+            lives--;
+            panel_IMG_engines[lives].setVisibility(View.INVISIBLE);
+            if (lives == 0) {
+                gameOver();
+            }
+        }
+        else if (vals[4][current] == 2) {
+            if (lives < 4) {
+                playSound(R.raw.sound_fix);
+                panel_IMG_engines[lives].setVisibility(View.VISIBLE);
+                lives++;
+                Toast.makeText(getApplicationContext(),"Engine "+ lives + " Fixed",Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
-//        if(i<4){
-//            path[i][columnC].setVisibility(View.INVISIBLE);
-//            path[i+1][columnC].setVisibility(View.VISIBLE);
-//            i++;
-//        } else {
-//            if(current==columnC){
-//                vibrate(3000);
-//                lives--;
-//                panel_IMG_engines[lives].setVisibility(View.INVISIBLE);
-//                if(lives==0){
-//                    gameOver();
-//                }
-//            }
-//
-//            path[4][columnC].setVisibility(View.INVISIBLE);
-//            i=0;
-//        }
+    private void logic() {
+        obsChoose = (int) Math.floor(Math.random()*NUM_OF_OBSTACLE_TYPES);
+        columnChoose = (int) Math.floor(Math.random()*NUM_OF_COLUMNS);
 
+
+
+        for (int i = vals.length-1; i > 0; i--) {
+            for(int j = 0; j < vals[0].length; j++){
+                vals[i][j] = vals[i-1][j];
+            }
+
+        }
+
+        for (int i = 0; i < vals[0].length; i++) {
+            vals[0][i] = 0;
+        }
+
+        vals[0][columnChoose] = obsChoose;
+        update_UI_logic();
+
+    }
+
+    private void update_UI_logic() {
+
+        for (int i = 0; i < path.length; i++) {
+            for (int j = 0; j < path[i].length; j++) {
+                ImageView im = path[i][j];
+                if (vals[i][j] == 0) {
+                    im.setVisibility(View.INVISIBLE);
+                } else if (vals[i][j] == 1) {
+                    im.setVisibility(View.VISIBLE);
+                    im.setImageResource(R.drawable.ic_seagull);
+                } else if (vals[i][j] == 2) {
+                    im.setVisibility(View.VISIBLE);
+                    im.setImageResource(R.drawable.ic_service);
+
+
+                }
+            }
+        }
     }
 
         private void gameOver() {
@@ -120,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
             playSound(R.raw.audio_mayday);
 
-            //panel_IMG_airplane[current].setImageResource(R.drawable.ic_crush);
+            panel_IMG_airplane[current].setImageResource(R.drawable.ic_crush);
             vibrate(2000);
             Toast.makeText(getApplicationContext(),"Game Over",Toast.LENGTH_LONG).show();
             finish();
@@ -145,24 +199,14 @@ public class MainActivity extends AppCompatActivity {
         final MediaPlayer mp = MediaPlayer.create(this, audio_mayday);
         mp.start();
 
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+
     }
 
-    private void setImage(int imageNum, int columnChoose) {
-        if(imageNum == 0) {
-            for (int i = 0; i < path.length; i++) {
-                path[i][columnChoose].setImageResource(R.drawable.ic_seagull);
-            }
-            path[0][columnChoose].setVisibility(View.VISIBLE);
-        }
-
-        else if (imageNum == 1) {
-            for (int i = 0; i < path.length; i++) {
-                path[i][columnChoose].setImageResource(R.drawable.ic_engine);
-            }
-            path[0][columnChoose].setVisibility(View.VISIBLE);
-        } else
-            path[0][columnChoose].setVisibility(View.INVISIBLE);
-    }
 
     private void initButtons() {
         panel_BTN_Left.setOnClickListener((new View.OnClickListener() {
@@ -222,6 +266,6 @@ public class MainActivity extends AppCompatActivity {
                 {findViewById(R.id.panel_IMG_30), findViewById(R.id.panel_IMG_31), findViewById(R.id.panel_IMG_32)},
                 {findViewById(R.id.panel_IMG_40), findViewById(R.id.panel_IMG_41), findViewById(R.id.panel_IMG_42)}
         };
-
+            vals = new int[path.length][path[0].length];
     }
 }
