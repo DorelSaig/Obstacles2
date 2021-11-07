@@ -6,6 +6,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
@@ -30,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
     private int[][] vals;
     private ImageButton panel_BTN_Right;
     private ImageButton panel_BTN_Left;
+    private ImageButton panel_BTN_restart;
+    private ImageButton panel_BTN_exit;
     private ImageView[] panel_IMG_engines;
     private ImageView[] panel_IMG_airplane;
+    private ImageView panel_IMG_gameOver;
 
     private int current = 1;
     private int i = 0;
@@ -52,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 .load(R.drawable.skybackground)
                 .centerCrop()
                 .into(panel_IMG_background);
+
+        panel_IMG_gameOver = findViewById(R.id.panel_IMG_gameOver);
+        Glide
+                .with(this)
+                .load(R.drawable.sky_game_over_background)
+                .centerCrop()
+                .into(panel_IMG_gameOver);
 
         findViews();
         initButtons();
@@ -83,11 +94,7 @@ public class MainActivity extends AppCompatActivity {
     private void startUI() {
         timer = new Timer();
 
-
-
-
-
-        path[0][columnChoose].setVisibility(View.VISIBLE);
+        //path[0][columnChoose].setVisibility(View.VISIBLE);
 
         // Timer Set and start running
         timer.schedule(new TimerTask() {
@@ -103,26 +110,46 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 1000);
+        }, 0, 400);
 
     }
 
     private void collisionCheck() {
         if (vals[4][current] == 1) {
-            vibrate(3000);
-            Toast.makeText(getApplicationContext(),"Engine "+lives+ " Down ",Toast.LENGTH_LONG).show();
+
+            vibrate(300);
+
+            playSound(R.raw.sound_hit);
+
+            final Toast toast = Toast.makeText(getApplicationContext(),"Engine "+lives+ " Down ",Toast.LENGTH_SHORT);
+            toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toast.cancel();
+                }
+            }, 500);
+
             lives--;
+
             panel_IMG_engines[lives].setVisibility(View.INVISIBLE);
+
             if (lives == 0) {
                 gameOver();
             }
         }
         else if (vals[4][current] == 2) {
             if (lives < 4) {
+
                 playSound(R.raw.sound_fix);
+
+                vibrate(100);
+
                 panel_IMG_engines[lives].setVisibility(View.VISIBLE);
+
                 lives++;
-                Toast.makeText(getApplicationContext(),"Engine "+ lives + " Fixed",Toast.LENGTH_LONG).show();
+
             }
         }
     }
@@ -174,15 +201,37 @@ public class MainActivity extends AppCompatActivity {
 
             playSound(R.raw.audio_mayday);
 
-            panel_IMG_airplane[current].setImageResource(R.drawable.ic_crush);
             vibrate(2000);
+
             Toast.makeText(getApplicationContext(),"Game Over",Toast.LENGTH_LONG).show();
-            finish();
+
+            panel_IMG_gameOver.setVisibility(View.VISIBLE);
+
+            panel_BTN_restart.setVisibility(View.VISIBLE);
+
+            panel_BTN_exit.setVisibility(View.VISIBLE);
+
+            //finish();
         }
 
+    private void restart() {
+
+        vibrate(100);
+
+        panel_BTN_restart.setVisibility(View.INVISIBLE);
+        panel_IMG_gameOver.setVisibility(View.INVISIBLE);
+
+        finish();
+        startActivity(getIntent());
+
+        // Cancel the swipe transition
+        overridePendingTransition(1, 0);
+        String time = System.currentTimeMillis() + "";
+
+    }
 
 
-        private void vibrate(int millisecond) {
+    private void vibrate(int millisecond) {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -198,12 +247,6 @@ public class MainActivity extends AppCompatActivity {
 
         final MediaPlayer mp = MediaPlayer.create(this, audio_mayday);
         mp.start();
-
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            }
-        });
 
     }
 
@@ -226,6 +269,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
+        panel_BTN_restart.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restart();
+            }
+        }));
+
+        panel_BTN_exit.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        }));
+
     }
 
     private void move(boolean direction) {
@@ -245,6 +302,10 @@ public class MainActivity extends AppCompatActivity {
         panel_BTN_Right = findViewById(R.id.panel_BTN_right);
 
         panel_BTN_Left = findViewById(R.id.panel_BTN_left);
+
+        panel_BTN_restart = findViewById(R.id.panel_BTN_restart);
+
+        panel_BTN_exit = findViewById(R.id.panel_BTN_exit);
 
         panel_IMG_engines = new ImageView[] {
                 findViewById(R.id.engine1),

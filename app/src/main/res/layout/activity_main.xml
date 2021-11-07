@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
+    //------- Background init --------
     <ImageView
         android:id="@+id/panel_IMG_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#B0EBF1" />
 
+
+    //------- Lives Panel --------
     <ImageView
         android:id="@+id/engine1"
         android:layout_width="50dp"
@@ -49,6 +51,7 @@
         android:src="@drawable/ic_engine"
         />
 
+    //------- Game Panel --------
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,6 +59,7 @@
         android:orientation="vertical"
         tools:visibility="visible">
 
+        //------- Seagull Panel 0 --------
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -67,27 +71,31 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="invisible"/>
+                android:visibility="visible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_01"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="invisible"/>
+                android:visibility="visible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_02"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="invisible"/>
+                android:visibility="visible"/>
 
         </LinearLayout>
 
+        //------- Seagull Panel 1 --------
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -99,14 +107,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="invisible"/>
+                android:visibility="visible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_11"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
@@ -115,11 +125,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
         </LinearLayout>
 
+        //------- Seagull Panel 2 --------
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -131,6 +143,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
@@ -139,6 +152,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
@@ -147,11 +161,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
         </LinearLayout>
 
+        //------- Seagull Panel 3 --------
         <LinearLayout
 
             android:layout_width="match_parent"
@@ -165,6 +181,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
@@ -173,6 +190,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
@@ -181,12 +199,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
-        </LinearLayout
-            >
+        </LinearLayout>
 
+        //------- Seagull Panel 4 --------
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -198,27 +217,31 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_41"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_42"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="25dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
         </LinearLayout>
 
+        //------- Steering Wheels panel --------
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -254,37 +277,83 @@
 
     </LinearLayout>
 
+    //------- Player horizontal layout --------
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="106dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="115dp"
+        android:layout_marginBottom="116dp"
         android:orientation="horizontal"
         android:visibility="visible">
 
         <ImageView
             android:id="@+id/panel_IMG_main_left"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_airplane"
-            android:visibility="visible"/>
+            android:visibility="invisible"/>
 
         <ImageView
             android:id="@+id/panel_IMG_main_mid"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_airplane"
             android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/panel_IMG_main_right"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_airplane"
-            android:visibility="visible"/>
+            android:visibility="invisible"/>
 
     </LinearLayout>
+
+
+    //------- Game Over background --------
+    <ImageView
+        android:id="@+id/panel_IMG_gameOver"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B0EBF1"
+        android:visibility="invisible"/>
+
+    //------- Game Over Panel --------
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+    <ImageButton
+        android:id="@+id/panel_BTN_restart"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_restart"
+        android:visibility="invisible"
+        />
+
+        <ImageButton
+            android:id="@+id/panel_BTN_exit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_exit"
+            android:visibility="invisible"
+            />
+
+    </LinearLayout>
+
 </RelativeLayout>
