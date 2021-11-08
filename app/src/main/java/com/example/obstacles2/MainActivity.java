@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        startUI();
+
+            startUI();
     }
 
     @Override
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         stopUI();
     }
+
 
     private void stopUI() {
         timer.cancel();
@@ -225,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(getIntent());
 
         // Cancel the swipe transition
-        overridePendingTransition(1, 0);
+        overridePendingTransition(0, 0);
         String time = System.currentTimeMillis() + "";
 
     }
@@ -279,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
         panel_BTN_exit.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                finishAndRemoveTask();
             }
         }));
 
