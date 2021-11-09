@@ -51,6 +51,19 @@
         android:src="@drawable/ic_engine"
         />
 
+    <ImageButton
+        android:id="@+id/panel_BTN_volume"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/engine1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/ic_volume_on"
+        />
+
+
+
     //------- Game Panel --------
     <LinearLayout
         android:layout_width="match_parent"
@@ -253,6 +266,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:background="@drawable/ic_wheel_left"
                 android:text="Left" />
 
@@ -260,7 +274,7 @@
                 android:id="@+id/space_holder"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:src="@drawable/ic_seagull"
                 android:visibility="invisible"/>
 
@@ -269,6 +283,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:background="@drawable/ic_wheel_right"
                 android:text="Right"
                 />
@@ -312,47 +327,6 @@
             android:layout_margin="15dp"
             android:src="@drawable/ic_airplane"
             android:visibility="invisible"/>
-
-    </LinearLayout>
-
-
-    //------- Game Over background --------
-    <ImageView
-        android:id="@+id/panel_IMG_gameOver"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#B0EBF1"
-        android:visibility="invisible"/>
-
-    //------- Game Over Panel --------
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-    <ImageButton
-        android:id="@+id/panel_BTN_restart"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_weight="1"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/ic_restart"
-        android:visibility="invisible"
-        />
-
-        <ImageButton
-            android:id="@+id/panel_BTN_exit"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_exit"
-            android:visibility="invisible"
-            />
 
     </LinearLayout>
 

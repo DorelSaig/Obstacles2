@@ -3,6 +3,7 @@ package com.example.obstacles2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,13 +32,16 @@ public class MainActivity extends AppCompatActivity {
     private int[][] vals;
     private ImageButton panel_BTN_Right;
     private ImageButton panel_BTN_Left;
-    private ImageButton panel_BTN_restart;
-    private ImageButton panel_BTN_exit;
+    private ImageButton panel_BTN_volume;
+
     private ImageView[] panel_IMG_engines;
     private ImageView[] panel_IMG_airplane;
-    private ImageView panel_IMG_gameOver;
+
+    private boolean volume = true;
+
 
     private int current = 1;
+    private int speed = 200;
     private int i = 0;
     private int lives = MAX_LIVES;
 
@@ -57,13 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(panel_IMG_background);
 
-        panel_IMG_gameOver = findViewById(R.id.panel_IMG_gameOver);
-        Glide
-                .with(this)
-                .load(R.drawable.sky_game_over_background)
-                .centerCrop()
-                .into(panel_IMG_gameOver);
-
         findViews();
         initButtons();
 
@@ -77,20 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+
+        //start service and play music
+        startService(new Intent(MainActivity.this, SoundService.class));
+
         super.onStart();
 
             startUI();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stopUI();
-    }
-
-
-    private void stopUI() {
-        timer.cancel();
     }
 
     private void startUI() {
@@ -112,9 +102,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 400);
+        }, 0, speed);
 
     }
+
+    @Override
+    protected void onStop() {
+        stopService(new Intent(MainActivity.this, SoundService.class));
+
+        super.onStop();
+        stopUI();
+    }
+
+
+    private void stopUI() {
+        timer.cancel();
+    }
+
+
 
     private void collisionCheck() {
         if (vals[4][current] == 1) {
@@ -160,8 +165,6 @@ public class MainActivity extends AppCompatActivity {
         obsChoose = (int) Math.floor(Math.random()*NUM_OF_OBSTACLE_TYPES);
         columnChoose = (int) Math.floor(Math.random()*NUM_OF_COLUMNS);
 
-
-
         for (int i = vals.length-1; i > 0; i--) {
             for(int j = 0; j < vals[0].length; j++){
                 vals[i][j] = vals[i-1][j];
@@ -191,8 +194,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (vals[i][j] == 2) {
                     im.setVisibility(View.VISIBLE);
                     im.setImageResource(R.drawable.ic_service);
-
-
                 }
             }
         }
@@ -201,38 +202,13 @@ public class MainActivity extends AppCompatActivity {
         private void gameOver() {
             timer.cancel();
 
-            playSound(R.raw.audio_mayday);
+            Intent i = new Intent(MainActivity.this, GameOverActivity.class);
+            startActivity(i);
+            this.finish();
 
-            vibrate(2000);
-
-            Toast.makeText(getApplicationContext(),"Game Over",Toast.LENGTH_LONG).show();
-
-            panel_IMG_gameOver.setVisibility(View.VISIBLE);
-
-            panel_BTN_restart.setVisibility(View.VISIBLE);
-
-            panel_BTN_exit.setVisibility(View.VISIBLE);
-
-            //finish();
         }
 
-    private void restart() {
-
-        vibrate(100);
-
-        panel_BTN_restart.setVisibility(View.INVISIBLE);
-        panel_IMG_gameOver.setVisibility(View.INVISIBLE);
-
-        finish();
-        startActivity(getIntent());
-
-        // Cancel the swipe transition
-        overridePendingTransition(0, 0);
-        String time = System.currentTimeMillis() + "";
-
-    }
-
-
+    //TODO make global function
     private void vibrate(int millisecond) {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
@@ -244,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
+    //TODO make global function
     private void playSound(int audio_mayday) {
 
         final MediaPlayer mp = MediaPlayer.create(this, audio_mayday);
@@ -271,19 +247,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
-        panel_BTN_restart.setOnClickListener((new View.OnClickListener() {
+        panel_BTN_volume.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restart();
+                if (volume){
+                    stopService(new Intent(MainActivity.this, SoundService.class));
+                    panel_BTN_volume.setBackgroundResource(R.drawable.ic_volume_off);
+                    volume = false;
+                } else {
+                    startService(new Intent(MainActivity.this, SoundService.class));
+                    panel_BTN_volume.setBackgroundResource(R.drawable.ic_volume_on);
+                    volume = true;
+                }
             }
         }));
 
-        panel_BTN_exit.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishAndRemoveTask();
-            }
-        }));
+
 
     }
 
@@ -305,9 +284,7 @@ public class MainActivity extends AppCompatActivity {
 
         panel_BTN_Left = findViewById(R.id.panel_BTN_left);
 
-        panel_BTN_restart = findViewById(R.id.panel_BTN_restart);
-
-        panel_BTN_exit = findViewById(R.id.panel_BTN_exit);
+        panel_BTN_volume = findViewById(R.id.panel_BTN_volume);
 
         panel_IMG_engines = new ImageView[] {
                 findViewById(R.id.engine1),
