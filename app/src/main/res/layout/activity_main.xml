@@ -51,16 +51,17 @@
         android:src="@drawable/ic_engine"
         />
 
-    <ImageButton
-        android:id="@+id/panel_BTN_volume"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+    <TextView
+        android:id="@+id/panel_TXT_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/engine1"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/ic_volume_on"
-        />
+        android:textSize="30dp"
+         />
+
 
 
 
@@ -270,13 +271,16 @@
                 android:background="@drawable/ic_wheel_left"
                 android:text="Left" />
 
-            <ImageView
-                android:id="@+id/space_holder"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:src="@drawable/ic_seagull"
-                android:visibility="invisible"/>
+            <ImageButton
+                android:id="@+id/panel_BTN_volume"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@+id/engine1"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/ic_volume_on" />
 
             <ImageButton
                 android:id="@+id/panel_BTN_right"
@@ -329,5 +333,6 @@
             android:visibility="invisible"/>
 
     </LinearLayout>
+
 
 </RelativeLayout>

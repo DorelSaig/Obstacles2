@@ -11,8 +11,10 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -34,17 +36,20 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton panel_BTN_Left;
     private ImageButton panel_BTN_volume;
 
+    private TextView panel_TXT_time;
+    private int count = 0;
+
     private ImageView[] panel_IMG_engines;
     private ImageView[] panel_IMG_airplane;
 
     private boolean volume = true;
 
-
     private int current = 1;
-    private int speed = 200;
+    private int speed = 500;
     private int i = 0;
     private int lives = MAX_LIVES;
 
+    private Timer timer_display;
     private Timer timer = new Timer();
     int obsChoose;
     int columnChoose;
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Set Background Image Using Glide
         ImageView panel_IMG_background = findViewById(R.id.panel_IMG_background);
         Glide
                 .with(this)
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(panel_IMG_background);
 
+        //------- Init Panel --------
         findViews();
         initButtons();
 
@@ -80,13 +87,45 @@ public class MainActivity extends AppCompatActivity {
 
         super.onStart();
 
+            startTimer();
             startUI();
     }
 
+    //------- Play Time Counter For Future Score Board --------
+    private void startTimer() {
+        timer_display = new Timer();
+
+        // Timer Set and start running
+        timer_display.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        panel_TXT_time.setText(""+count);
+                        count++;
+
+                        //------- Every 10 Seconds Game Speed Increases by 30 millis if speed is more than 200 millis, else by 1 milli. --------
+                        if(count%10 == 0) {
+                            if(speed>200) {
+                                speed -= 50;
+                            } else {
+                                speed -=1;
+                            }
+                            timer.cancel();
+                            startUI();
+                        }
+
+                    }
+                });
+            }
+        }, 0, 1000);
+    }
+
+    //------- Responsible for the refresh of the UI every 'speed' milliseconds --------
     private void startUI() {
         timer = new Timer();
-
-        //path[0][columnChoose].setVisibility(View.VISIBLE);
 
         // Timer Set and start running
         timer.schedule(new TimerTask() {
@@ -106,21 +145,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onStop() {
+        //------- Stop background  Music--------
         stopService(new Intent(MainActivity.this, SoundService.class));
 
         super.onStop();
+
+
         stopUI();
     }
 
-
+    //------- Stop UI movement and time count --------
     private void stopUI() {
         timer.cancel();
+        timer_display.cancel();
     }
 
-
-
+    //------- Check Collision Logic And Game State --------
     private void collisionCheck() {
         if (vals[4][current] == 1) {
 
@@ -130,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
             final Toast toast = Toast.makeText(getApplicationContext(),"Engine "+lives+ " Down ",Toast.LENGTH_SHORT);
             toast.show();
+            //------- Due to const time of toast (Short = 2.5s, Long= 3.5s) to make it shorter I Used Handler That Cancel the Toast after 500 millis. --------
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -161,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //------- Game UI Logic - First Working on int Matrix --------
     private void logic() {
         obsChoose = (int) Math.floor(Math.random()*NUM_OF_OBSTACLE_TYPES);
         columnChoose = (int) Math.floor(Math.random()*NUM_OF_COLUMNS);
@@ -181,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //------- Game UI Logic - Second Working on the ImageView Matrix --------
     private void update_UI_logic() {
 
         for (int i = 0; i < path.length; i++) {
@@ -199,8 +245,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //------- Game Over Tasks --------
         private void gameOver() {
             timer.cancel();
+            timer_display.cancel();
 
             Intent i = new Intent(MainActivity.this, GameOverActivity.class);
             startActivity(i);
@@ -208,7 +256,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    //TODO make global function
+    //TODO make util function
+    //------- Vibrate Function --------
     private void vibrate(int millisecond) {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
@@ -220,7 +269,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    //TODO make global function
+    //TODO make util function
+    //------- Sound Player --------
     private void playSound(int audio_mayday) {
 
         final MediaPlayer mp = MediaPlayer.create(this, audio_mayday);
@@ -228,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    //------- Initialize Buttons --------
     private void initButtons() {
         panel_BTN_Left.setOnClickListener((new View.OnClickListener() {
             @Override
@@ -266,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //------- Player movement logic --------
     private void move(boolean direction) {
         if(direction && current<=1){
             panel_IMG_airplane[current].setVisibility(View.INVISIBLE);
@@ -278,6 +329,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //------- Finding all views By ID --------
     private void findViews() {
 
         panel_BTN_Right = findViewById(R.id.panel_BTN_right);
@@ -285,6 +337,8 @@ public class MainActivity extends AppCompatActivity {
         panel_BTN_Left = findViewById(R.id.panel_BTN_left);
 
         panel_BTN_volume = findViewById(R.id.panel_BTN_volume);
+
+        panel_TXT_time = findViewById(R.id.panel_TXT_time);
 
         panel_IMG_engines = new ImageView[] {
                 findViewById(R.id.engine1),
