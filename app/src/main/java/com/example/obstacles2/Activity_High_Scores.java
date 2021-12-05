@@ -51,25 +51,13 @@ public class Activity_High_Scores extends AppCompatActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng sydney = new LatLng(-33.852, 151.211);
+        LatLng melbourne = new LatLng(-37.67073140377376, 144.84332141711963);
         mMap.addMarker(new MarkerOptions()
-                .position(sydney)
-                .title("Marker in Sydney"));
+                .position(melbourne)
+                .title("Flight Destination : Melbourne Airport, Vic, Australia"));
         //LatLng laLang = new LatLng(10, 30);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(melbourne, 14.0f));
     }
-
-    private String locateCity(double lat, double lon) {
-        return "Tel-Aviv";
-    }
-
-    CallBack_Map callBack_map = new CallBack_Map() {
-        @Override
-        public void mapClicked(double lat, double lon) {
-            String city = locateCity(lat, lon);
-            fragmentList.setTitle(city);
-        }
-    };
 
     CallBack_List callBackList = new CallBack_List() {
         @Override
@@ -82,16 +70,8 @@ public class Activity_High_Scores extends AppCompatActivity implements OnMapRead
         LatLng point = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions()
                 .position(point)
-                .title(name));
-        //LatLng laLang = new LatLng(10, 30);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(point));
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        fragmentList.setTitle("iOS");
+                .title("* Crash Site * | Pilot Name: " + name));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 13.0f));
     }
 
     @Override

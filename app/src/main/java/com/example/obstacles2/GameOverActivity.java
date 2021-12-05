@@ -152,8 +152,6 @@ public class GameOverActivity extends AppCompatActivity {
 
         vibrate(100);
 
-        Intent i = new Intent(GameOverActivity.this, Activity_Menu.class);
-        startActivity(i);
         this.finish();
 
 

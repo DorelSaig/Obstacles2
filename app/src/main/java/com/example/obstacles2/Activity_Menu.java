@@ -37,12 +37,12 @@ public class Activity_Menu extends AppCompatActivity {
         if(first_time){
 
             MyDB myDB = new MyDB();
-            myDB.getRecords().add(new Record()
-                        .setName("Test2")
-                        .setScore(0)
-                        .setLat(0)
-                        .setLon(0)
-                );
+//            myDB.getRecords().add(new Record()
+//                        .setName("Test2")
+//                        .setScore(0)
+//                        .setLat(0)
+//                        .setLon(0)
+//                );
 
             String json = new Gson().toJson(myDB);
             MSPV3.getMe().putString("MY_DB", json);
