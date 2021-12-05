@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_Menu">
+
+    <ImageView
+        android:id="@+id/panel_IMG_menu_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B0EBF1"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/game_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/game_logo"
+        android:visibility="visible" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menu_BTN_easy"
+        android:backgroundTint="#04429A"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/game_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Easy" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menu_BTN_hard"
+        android:backgroundTint="#04429A"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/menu_BTN_easy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Hard" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/menu_BTN_high_scores"
+        android:backgroundTint="#04429A"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/menu_BTN_hard"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="High Scores" />
+
+</RelativeLayout>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="300dp"
+    android:layout_marginBottom="10dp">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="30dp"
+    tools:context=".MainActivity"
+    >
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/high_scores_LBL_0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#B4FFC107"
+        android:text="player #1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:cornerRadius="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/high_scores_LBL_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/high_scores_LBL_0"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#B4FFC107"
+        android:text="player #2"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/high_scores_LBL_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/high_scores_LBL_1"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#B4FFC107"
+        android:text="player #3"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:cornerRadius="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/high_scores_LBL_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/high_scores_LBL_2"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#8513BFF4"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:text="player #4"
+        app:cornerRadius="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        app:cornerRadius="10dp"
+        android:id="@+id/high_scores_LBL_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/high_scores_LBL_3"
+        android:backgroundTint="#8513BFF4"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="player #5"/>
+
+    <com.google.android.material.button.MaterialButton
+        app:cornerRadius="10dp"
+        android:id="@+id/high_scores_LBL_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/high_scores_LBL_4"
+        android:backgroundTint="#8513BFF4"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="player #6"/>
+
+    <com.google.android.material.button.MaterialButton
+        app:cornerRadius="10dp"
+        android:id="@+id/high_scores_LBL_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/high_scores_LBL_5"
+        android:backgroundTint="#8513BFF4"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="player #7"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        app:cornerRadius="10dp"
+        android:id="@+id/high_scores_LBL_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/high_scores_LBL_6"
+        android:backgroundTint="#8513BFF4"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="player #8"/>
+
+    <com.google.android.material.button.MaterialButton
+        app:cornerRadius="10dp"
+        android:id="@+id/high_scores_LBL_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/high_scores_LBL_7"
+        android:backgroundTint="#8513BFF4"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:text="player #9"/>
+
+    <com.google.android.material.button.MaterialButton
+        app:cornerRadius="10dp"
+        android:id="@+id/high_scores_LBL_9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/high_scores_LBL_8"
+        android:layout_alignStart="@id/high_scores_LBL_0"
+        android:layout_alignEnd="@id/high_scores_LBL_0"
+        android:backgroundTint="#8513BFF4"
+        android:text="player #10"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/frame1_BTN_refresh"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/high_scores_LBL_9"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+
+        android:text="Refresh"
+        app:cornerRadius="50dp"
+        app:strokeColor="@color/purple_500" />
+
+</RelativeLayout>
+</ScrollView>

@@ -8,43 +8,77 @@
 
 
     //------- Game Over background --------
+
     <ImageView
         android:id="@+id/panel_IMG_gameOver"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#B0EBF1"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     //------- Game Over Panel --------
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="horizontal"
-        android:visibility="visible">
+        android:orientation="vertical"
+        android:visibility="visible"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
 
-        <ImageButton
-            android:id="@+id/panel_BTN_restart"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_restart"
-            android:visibility="visible"
-            />
+        <EditText
+            android:id="@+id/panel_ETXT_playerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Name" />
 
-        <ImageButton
-            android:id="@+id/panel_BTN_exit"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/panel_BTN_saveRecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_exit"
-            android:visibility="visible"
-            />
+            android:backgroundTint = "#1392D6"
+            android:text="Save" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/panel_BTN_restart"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_restart"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/panel_BTN_exit"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_exit"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
+
 
 </RelativeLayout>

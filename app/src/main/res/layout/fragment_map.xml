@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#F48600"
+    android:layout_margin="1dp">
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/frame2_BTN_map"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_margin="24dp"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:text="Click On Map"-->
+
+<!--        style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:strokeColor="@color/white"-->
+<!--        app:cornerRadius="50dp"-->
+<!--        />-->
+
+<!--    <com.google.android.gms.maps.MapView-->
+<!--        android:id="@+id/mapView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="343dp" />-->
+
+
+</fragment>

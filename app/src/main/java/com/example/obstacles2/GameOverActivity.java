@@ -1,26 +1,44 @@
 package com.example.obstacles2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
+
+import java.util.Collections;
 
 public class GameOverActivity extends AppCompatActivity {
 
     private ImageView panel_IMG_gameOver;
     private ImageButton panel_BTN_restart;
     private ImageButton panel_BTN_exit;
+    private MaterialButton panel_BTN_saveRecord;
+    private EditText panel_ETXT_playerName;
+    private String player_Name;
+
+    private int score;
+
+    //Location Service
+    private GpsTracker gpsService;
+
+    private MyDB myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +60,27 @@ public class GameOverActivity extends AppCompatActivity {
 
         vibrate(2000);
 
-        Toast.makeText(getApplicationContext(),"Game Over",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Game Over", Toast.LENGTH_LONG).show();
+
+        score = getIntent().getExtras().getInt("Score");
+
+        //Location
+        try {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
     private void initViews() {
+
+        panel_ETXT_playerName = findViewById(R.id.panel_ETXT_playerName);
+
+        panel_BTN_saveRecord = findViewById(R.id.panel_BTN_saveRecord);
 
         panel_BTN_restart = findViewById(R.id.panel_BTN_restart);
 
@@ -68,6 +102,49 @@ public class GameOverActivity extends AppCompatActivity {
                 finishAndRemoveTask();
             }
         }));
+
+        panel_BTN_saveRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double latitude = 0.0;
+                double longitude = 0.0;
+
+                player_Name = panel_ETXT_playerName.getText().toString();
+
+                // * Start of Location Service
+                gpsService = new GpsTracker(GameOverActivity.this);
+                if (gpsService.canGetLocation()) {
+                    latitude = gpsService.getLatitude();
+                    longitude = gpsService.getLongitude();
+                    Toast.makeText(getApplicationContext(), "player: " + player_Name + " score: " + score + "long: " + longitude + " lati: " + latitude, Toast.LENGTH_LONG).show();
+                } else {
+                    gpsService.showSettingsAlert();
+                }
+                // * End of Location Service
+
+                saveRecord(player_Name, score, longitude, latitude);
+
+
+            }
+        });
+    }
+
+    private void saveRecord(String player_name, int score, double longitude, double latitude) {
+
+        String js = MSPV3.getMe().getString("MY_DB", "");
+        myDB = new Gson().fromJson(js, MyDB.class);
+
+        myDB.getRecords().add(new Record()
+                .setName(player_name)
+                .setScore(score)
+                .setLat(latitude)
+                .setLon(longitude)
+        );
+
+        Collections.sort(myDB.getRecords(), new SortByScore());
+
+        String json = new Gson().toJson(myDB);
+        MSPV3.getMe().putString("MY_DB", json);
     }
 
 
@@ -75,7 +152,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         vibrate(100);
 
-        Intent i = new Intent(GameOverActivity.this, MainActivity.class);
+        Intent i = new Intent(GameOverActivity.this, Activity_Menu.class);
         startActivity(i);
         this.finish();
 

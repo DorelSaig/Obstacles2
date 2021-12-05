@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,21 +24,26 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
     private final int MAX_LIVES = 4;
-    private final int NUM_OF_COLUMNS = 3;
+    private final int NUM_OF_COLUMNS = 5;
     private final int NUM_OF_OBSTACLE_TYPES = 3;
+    public static final String SENSOR_MODE = "SENSOR_MODE";
 
+    private boolean sensorMode = false;
 
     private ImageView[][] path;
     private int[][] vals;
     private ImageButton panel_BTN_Right;
     private ImageButton panel_BTN_Left;
     private ImageButton panel_BTN_volume;
+
+    private TextView panel_TXT_acc;
 
     private TextView panel_TXT_time;
     private int count = 0;
@@ -44,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean volume = true;
 
-    private int current = 1;
+    private int current = 2;
     private int speed = 500;
     private int i = 0;
     private int lives = MAX_LIVES;
@@ -53,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = new Timer();
     int obsChoose;
     int columnChoose;
+
+    private SensorManager sensorManager;
+    private Sensor accSensor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +81,15 @@ public class MainActivity extends AppCompatActivity {
                 .into(panel_IMG_background);
 
         //------- Init Panel --------
+        sensorMode = getIntent().getExtras().getBoolean(SENSOR_MODE);
         findViews();
         initButtons();
+
+        if(sensorMode) {
+            initSensor();
+            panel_BTN_Left.setVisibility(View.INVISIBLE);
+            panel_BTN_Right.setVisibility(View.INVISIBLE);
+        }
 
         for (int i = 0; i < vals.length; i++) {
             for (int j = 0; j < vals[i].length; j++) {
@@ -77,6 +97,60 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void initSensor() {
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+
+    private SensorEventListener accSensorEventListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+
+            if(event.values[0]>4 ){
+                panel_IMG_airplane[current].setVisibility(View.INVISIBLE);
+                current=0;
+                panel_IMG_airplane[current].setVisibility(View.VISIBLE);
+            } else if (event.values[0]<4 && event.values[0]>2){
+                panel_IMG_airplane[current].setVisibility(View.INVISIBLE);
+                current=1;
+                panel_IMG_airplane[current].setVisibility(View.VISIBLE);
+            }else if (event.values[0]<2 && event.values[0]>-2) {
+                panel_IMG_airplane[current].setVisibility(View.INVISIBLE);
+                current = 2;
+                panel_IMG_airplane[current].setVisibility(View.VISIBLE);
+            } else if (event.values[0]<-2 && event.values[0]>-4){
+                panel_IMG_airplane[current].setVisibility(View.INVISIBLE);
+                current=3;
+                panel_IMG_airplane[current].setVisibility(View.VISIBLE);
+            }else{
+                panel_IMG_airplane[current].setVisibility(View.INVISIBLE);
+                current=4;
+                panel_IMG_airplane[current].setVisibility(View.VISIBLE);
+            }
+
+            DecimalFormat df = new DecimalFormat("##.##");
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            panel_TXT_acc.setText(
+                    sensorMode + "\n" + df.format(x) + "\n" + df.format(y) + "\n" + df.format(z)
+            );
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(sensorMode) {
+            sensorManager.registerListener(accSensorEventListener, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     @Override
@@ -145,6 +219,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(sensorMode) {
+            sensorManager.unregisterListener(accSensorEventListener);
+        }
+    }
 
     @Override
     protected void onStop() {
@@ -250,8 +331,9 @@ public class MainActivity extends AppCompatActivity {
             timer.cancel();
             timer_display.cancel();
 
-            Intent i = new Intent(MainActivity.this, GameOverActivity.class);
-            startActivity(i);
+            Intent gameOverIntent = new Intent(MainActivity.this, GameOverActivity.class);
+            gameOverIntent.putExtra("Score", count);
+            startActivity(gameOverIntent);
             this.finish();
 
         }
@@ -318,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
 
     //------- Player movement logic --------
     private void move(boolean direction) {
-        if(direction && current<=1){
+        if(direction && current<=3){
             panel_IMG_airplane[current].setVisibility(View.INVISIBLE);
             current++;
             panel_IMG_airplane[current].setVisibility(View.VISIBLE);
@@ -340,6 +422,8 @@ public class MainActivity extends AppCompatActivity {
 
         panel_TXT_time = findViewById(R.id.panel_TXT_time);
 
+        panel_TXT_acc = findViewById(R.id.panel_TXT_acc);
+
         panel_IMG_engines = new ImageView[] {
                 findViewById(R.id.engine1),
                 findViewById(R.id.engine2),
@@ -349,16 +433,18 @@ public class MainActivity extends AppCompatActivity {
 
         panel_IMG_airplane = new ImageView[]{
                 findViewById(R.id.panel_IMG_main_left),
+                findViewById(R.id.panel_IMG_main_mid_left),
                 findViewById(R.id.panel_IMG_main_mid),
+                findViewById(R.id.panel_IMG_main_mid_right),
                 findViewById(R.id.panel_IMG_main_right),
         };
 
         path = new ImageView[][] {
-                {findViewById(R.id.panel_IMG_00), findViewById(R.id.panel_IMG_01), findViewById(R.id.panel_IMG_02)},
-                {findViewById(R.id.panel_IMG_10), findViewById(R.id.panel_IMG_11), findViewById(R.id.panel_IMG_12)},
-                {findViewById(R.id.panel_IMG_20), findViewById(R.id.panel_IMG_21), findViewById(R.id.panel_IMG_22)},
-                {findViewById(R.id.panel_IMG_30), findViewById(R.id.panel_IMG_31), findViewById(R.id.panel_IMG_32)},
-                {findViewById(R.id.panel_IMG_40), findViewById(R.id.panel_IMG_41), findViewById(R.id.panel_IMG_42)}
+                {findViewById(R.id.panel_IMG_00), findViewById(R.id.panel_IMG_01), findViewById(R.id.panel_IMG_02), findViewById(R.id.panel_IMG_03), findViewById(R.id.panel_IMG_04)},
+                {findViewById(R.id.panel_IMG_10), findViewById(R.id.panel_IMG_11), findViewById(R.id.panel_IMG_12), findViewById(R.id.panel_IMG_13), findViewById(R.id.panel_IMG_14)},
+                {findViewById(R.id.panel_IMG_20), findViewById(R.id.panel_IMG_21), findViewById(R.id.panel_IMG_22), findViewById(R.id.panel_IMG_23), findViewById(R.id.panel_IMG_24)},
+                {findViewById(R.id.panel_IMG_30), findViewById(R.id.panel_IMG_31), findViewById(R.id.panel_IMG_32), findViewById(R.id.panel_IMG_33), findViewById(R.id.panel_IMG_34)},
+                {findViewById(R.id.panel_IMG_40), findViewById(R.id.panel_IMG_41), findViewById(R.id.panel_IMG_42), findViewById(R.id.panel_IMG_43), findViewById(R.id.panel_IMG_44)}
         };
             vals = new int[path.length][path[0].length];
     }
