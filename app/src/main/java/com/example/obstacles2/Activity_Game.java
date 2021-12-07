@@ -15,7 +15,6 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +27,7 @@ import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class Activity_Game extends AppCompatActivity {
 
     private final int MAX_LIVES = 4;
     private final int NUM_OF_COLUMNS = 5;
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
 
         //start service and play music
-        startService(new Intent(MainActivity.this, SoundService.class));
+        startService(new Intent(Activity_Game.this, SoundService.class));
 
         super.onStart();
 
@@ -230,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         //------- Stop background  Music--------
-        stopService(new Intent(MainActivity.this, SoundService.class));
+        stopService(new Intent(Activity_Game.this, SoundService.class));
 
         super.onStop();
 
@@ -295,7 +294,6 @@ public class MainActivity extends AppCompatActivity {
             for(int j = 0; j < vals[0].length; j++){
                 vals[i][j] = vals[i-1][j];
             }
-
         }
 
         for (int i = 0; i < vals[0].length; i++) {
@@ -331,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
             timer.cancel();
             timer_display.cancel();
 
-            Intent gameOverIntent = new Intent(MainActivity.this, GameOverActivity.class);
+            Intent gameOverIntent = new Intent(Activity_Game.this, Activity_Game_Over.class);
             gameOverIntent.putExtra("Score", count);
             startActivity(gameOverIntent);
             this.finish();
@@ -383,11 +381,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (volume){
-                    stopService(new Intent(MainActivity.this, SoundService.class));
+                    stopService(new Intent(Activity_Game.this, SoundService.class));
                     panel_BTN_volume.setBackgroundResource(R.drawable.ic_volume_off);
                     volume = false;
                 } else {
-                    startService(new Intent(MainActivity.this, SoundService.class));
+                    startService(new Intent(Activity_Game.this, SoundService.class));
                     panel_BTN_volume.setBackgroundResource(R.drawable.ic_volume_on);
                     volume = true;
                 }

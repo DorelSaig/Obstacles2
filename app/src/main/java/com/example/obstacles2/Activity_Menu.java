@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
-import com.google.gson.Gson;
 
 public class Activity_Menu extends AppCompatActivity {
 
@@ -27,28 +26,28 @@ public class Activity_Menu extends AppCompatActivity {
         ImageView panel_IMG_background = findViewById(R.id.panel_IMG_menu_background);
         Glide
                 .with(this)
-                .load(R.drawable.skybackground)
+                .load(R.drawable.terminal_background6)
                 .centerCrop()
                 .into(panel_IMG_background);
 
         findviews();
         initButtons();
 
-        if(first_time){
-
-            MyDB myDB = new MyDB();
-//            myDB.getRecords().add(new Record()
-//                        .setName("Test2")
-//                        .setScore(0)
-//                        .setLat(0)
-//                        .setLon(0)
-//                );
-
-            String json = new Gson().toJson(myDB);
-            MSPV3.getMe().putString("MY_DB", json);
-
-            first_time=false;
-            }
+//        if(first_time){
+//
+//            MyDB myDB = new MyDB();
+////            myDB.getRecords().add(new Record()
+////                        .setName("Test2")
+////                        .setScore(0)
+////                        .setLat(0)
+////                        .setLon(0)
+////                );
+//
+//            String json = new Gson().toJson(myDB);
+//            MSPV3.getMe().putString("MY_DB", json);
+//
+//            first_time=false;
+//            }
 
 
         }
@@ -90,10 +89,10 @@ public class Activity_Menu extends AppCompatActivity {
     }
 
     private void startGame(boolean sensorMode) {
-        Intent gameIntent = new Intent(this, MainActivity.class);
+        Intent gameIntent = new Intent(this, Activity_Game.class);
 
         Bundle bundle = new Bundle();
-        bundle.putBoolean(MainActivity.SENSOR_MODE, sensorMode);
+        bundle.putBoolean(Activity_Game.SENSOR_MODE, sensorMode);
 
         gameIntent.putExtras(bundle);
         startActivity(gameIntent);

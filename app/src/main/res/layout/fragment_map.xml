@@ -7,7 +7,7 @@
     android:id="@+id/map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Activity_Game"
     android:background="#F48600"
     android:layout_margin="1dp">
 

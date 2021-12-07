@@ -3,15 +3,20 @@ package com.example.obstacles2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.button.MaterialButton;
 
 public class Activity_High_Scores extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -20,7 +25,7 @@ public class Activity_High_Scores extends AppCompatActivity implements OnMapRead
 
     private GoogleMap mMap;
 
-    private TextView info;
+    private ImageButton panel_BTN_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,13 @@ public class Activity_High_Scores extends AppCompatActivity implements OnMapRead
         fragmentList.setCallBackList(callBackList);
         getSupportFragmentManager().beginTransaction().add(R.id.frame1, fragmentList).commit();
 
-        info = findViewById(R.id.info);
+        panel_BTN_back = findViewById(R.id.panel_BTN_back);
+        panel_BTN_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToMenu();
+            }
+        });
 
         SupportMapFragment mapFragment = SupportMapFragment.newInstance();
         getSupportFragmentManager()
@@ -42,10 +53,6 @@ public class Activity_High_Scores extends AppCompatActivity implements OnMapRead
 
         mapFragment.getMapAsync(this);
 
-//        fragmentMap = new Fragment_Map();
-//        fragmentMap.setActivity(this);
-//        fragmentMap.setCallBack_map(callBack_map);
-//        getSupportFragmentManager().beginTransaction().add(R.id.frame2, fragmentMap).commit();
     }
 
     @Override
@@ -64,7 +71,16 @@ public class Activity_High_Scores extends AppCompatActivity implements OnMapRead
         public void rowSelected(double longitude, double latitude, String playerName) {
             zoom(longitude, latitude, playerName);
         }
+
+        @Override
+        public void clearListClicked() {
+            backToMenu();
+        }
     };
+
+    private void backToMenu() {
+        this.finish();
+    }
 
     private void zoom(double longitude, double latitude, String name) {
         LatLng point = new LatLng(latitude, longitude);

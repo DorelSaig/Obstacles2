@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameOverActivity">
+    tools:context=".Activity_Game_Over">
 
 
     //------- Game Over background --------
@@ -19,6 +19,7 @@
     //------- Game Over Panel --------
 
     <LinearLayout
+        android:id="@+id/main_gameOver_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -27,7 +28,9 @@
         >
         <View
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"/>
+
 
         <EditText
             android:id="@+id/panel_ETXT_playerName"
@@ -35,17 +38,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:hint="Name"
+            android:fontFamily="@font/black_ops_one"
             android:inputType="textPersonName"
-            android:hint="Name" />
-
+            android:textColorHint="#99000000" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/panel_BTN_saveRecord"
+            style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint = "#1392D6"
-            android:text="Save" />
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#1392D6"
+            android:fontFamily="@font/black_ops_one"
+            android:text="Save"
+            android:textColor="@color/white"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -60,7 +68,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/ic_restart"
                 android:visibility="visible" />
@@ -70,15 +78,28 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/ic_exit"
-                android:visibility="visible" />
+                android:visibility="visible"
+                />
 
         </LinearLayout>
 
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/panel_TXT_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_gameOver_layout"
+
+        android:fontFamily="@font/black_ops_one"
+        android:text="Score: "
+        android:textAlignment="center"
+        android:textColor="#26567C"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

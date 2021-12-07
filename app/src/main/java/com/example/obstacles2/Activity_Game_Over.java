@@ -5,7 +5,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -24,13 +24,14 @@ import com.google.gson.Gson;
 
 import java.util.Collections;
 
-public class GameOverActivity extends AppCompatActivity {
+public class Activity_Game_Over extends AppCompatActivity {
 
     private ImageView panel_IMG_gameOver;
     private ImageButton panel_BTN_restart;
     private ImageButton panel_BTN_exit;
     private MaterialButton panel_BTN_saveRecord;
     private EditText panel_ETXT_playerName;
+    private TextView panel_TXT_score;
     private String player_Name;
 
     private int score;
@@ -64,6 +65,8 @@ public class GameOverActivity extends AppCompatActivity {
 
         score = getIntent().getExtras().getInt("Score");
 
+        panel_TXT_score.setText("Score: "+ score);
+
         //Location
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -85,6 +88,8 @@ public class GameOverActivity extends AppCompatActivity {
         panel_BTN_restart = findViewById(R.id.panel_BTN_restart);
 
         panel_BTN_exit = findViewById(R.id.panel_BTN_exit);
+
+        panel_TXT_score = findViewById(R.id.panel_TXT_score);
 
     }
 
@@ -112,7 +117,7 @@ public class GameOverActivity extends AppCompatActivity {
                 player_Name = panel_ETXT_playerName.getText().toString();
 
                 // * Start of Location Service
-                gpsService = new GpsTracker(GameOverActivity.this);
+                gpsService = new GpsTracker(Activity_Game_Over.this);
                 if (gpsService.canGetLocation()) {
                     latitude = gpsService.getLatitude();
                     longitude = gpsService.getLongitude();
@@ -121,6 +126,9 @@ public class GameOverActivity extends AppCompatActivity {
                     gpsService.showSettingsAlert();
                 }
                 // * End of Location Service
+
+                panel_ETXT_playerName.setVisibility(View.GONE);
+                panel_BTN_saveRecord.setVisibility(View.GONE);
 
                 saveRecord(player_Name, score, longitude, latitude);
 
