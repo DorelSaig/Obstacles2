@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/gradient_button" />
+        android:background="@color/teal_700" />
 
     <ImageView
         android:id="@+id/splash_IMG_logo"
@@ -21,5 +21,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/final_logo" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/splash_IMG_logo"
+        app:indicatorColor="@color/white"
+        app:trackColor="@color/black"
+        android:indeterminate="true"/>
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -14,7 +15,7 @@ public class Activity_Menu extends AppCompatActivity {
 
     private boolean first_time = true;
 
-    private MaterialButton menu_BTN_easy;
+    private Button menu_BTN_easy;
     private MaterialButton menu_BTN_hard;
     private MaterialButton menu_BTN_high_scores;
 
@@ -30,30 +31,13 @@ public class Activity_Menu extends AppCompatActivity {
                 .centerCrop()
                 .into(panel_IMG_background);
 
-        findviews();
+        findViews();
         initButtons();
-
-//        if(first_time){
-//
-//            MyDB myDB = new MyDB();
-////            myDB.getRecords().add(new Record()
-////                        .setName("Test2")
-////                        .setScore(0)
-////                        .setLat(0)
-////                        .setLon(0)
-////                );
-//
-//            String json = new Gson().toJson(myDB);
-//            MSPV3.getMe().putString("MY_DB", json);
-//
-//            first_time=false;
-//            }
-
 
         }
 
 
-    private void findviews() {
+    private void findViews() {
         menu_BTN_easy = findViewById(R.id.menu_BTN_easy);
         menu_BTN_hard = findViewById(R.id.menu_BTN_hard);
         menu_BTN_high_scores = findViewById(R.id.menu_BTN_high_scores);

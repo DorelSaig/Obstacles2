@@ -41,7 +41,10 @@
             android:hint="Name"
             android:fontFamily="@font/black_ops_one"
             android:inputType="textPersonName"
-            android:textColorHint="#99000000" />
+            android:textColorHint="#99000000"
+            android:textColor="@color/black"
+            android:textColorHighlight="#802292EA"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/panel_BTN_saveRecord"
@@ -95,11 +98,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/main_gameOver_layout"
 
-        android:fontFamily="@font/black_ops_one"
-        android:text="Score: "
+        android:fontFamily="@font/sky"
+        android:text="Score:"
         android:textAlignment="center"
-        android:textColor="#26567C"
-        android:textSize="40sp"
+        android:textColor="@color/black"
+        android:textSize="70sp"
+        android:maxLines="1"
         android:textStyle="bold" />
 
 </RelativeLayout>

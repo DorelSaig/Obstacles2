@@ -65,7 +65,7 @@ public class Activity_Game_Over extends AppCompatActivity {
 
         score = getIntent().getExtras().getInt("Score");
 
-        panel_TXT_score.setText("Score: "+ score);
+        panel_TXT_score.setText("Score:"+ score);
 
         //Location
         try {
@@ -121,7 +121,7 @@ public class Activity_Game_Over extends AppCompatActivity {
                 if (gpsService.canGetLocation()) {
                     latitude = gpsService.getLatitude();
                     longitude = gpsService.getLongitude();
-                    Toast.makeText(getApplicationContext(), "player: " + player_Name + " score: " + score + "long: " + longitude + " lati: " + latitude, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
                 } else {
                     gpsService.showSettingsAlert();
                 }

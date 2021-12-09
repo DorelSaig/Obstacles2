@@ -72,6 +72,8 @@ public class Fragment_List extends Fragment {
         String js = MSPV3.getMe().getString("MY_DB", "");
         MyDB md = new Gson().fromJson(js, MyDB.class);
 
+
+
         ArrayList<Record> rec = md.getRecords();
 
 

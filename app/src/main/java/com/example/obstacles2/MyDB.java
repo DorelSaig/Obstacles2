@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class MyDB {
 
-    private ArrayList<Record> records = new ArrayList<Record>();
+    private ArrayList<Record> records;
 
     public MyDB() { };
 

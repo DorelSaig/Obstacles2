@@ -7,6 +7,7 @@
     tools:context=".Activity_Game">
 
     //------- Background init --------
+
     <ImageView
         android:id="@+id/panel_IMG_background"
         android:layout_width="match_parent"
@@ -59,21 +60,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
-        android:textSize="30dp"
+        android:text="0"
+        android:textColor="@color/black"
+        android:fontFamily="@font/sky"
+        android:textSize="50dp"
          />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/panel_TXT_acc"
-        android:layout_alignTop="@+id/engine1"
-        android:layout_toStartOf="@id/panel_TXT_time"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:textSize="30dp"
-        />
-
-
 
     //------- Game Panel --------
     <LinearLayout

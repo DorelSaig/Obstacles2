@@ -21,7 +21,6 @@ import com.google.android.material.button.MaterialButton;
 public class Activity_High_Scores extends AppCompatActivity implements OnMapReadyCallback {
 
     private Fragment_List fragmentList;
-    private Fragment_Map fragmentMap;
 
     private GoogleMap mMap;
 

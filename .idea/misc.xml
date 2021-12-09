@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CellularApps/Obstacles2/app/src/main/res/drawable/button_style.xml" value="0.5703125" />
         <entry key="..\:/CellularApps/Obstacles2/app/src/main/res/drawable/gradient_button.xml" value="0.34322916666666664" />
         <entry key="..\:/CellularApps/Obstacles2/app/src/main/res/drawable/gradient_button_top5.xml" value="0.34322916666666664" />
+        <entry key="..\:/CellularApps/Obstacles2/app/src/main/res/layout/activity_game.xml" value="0.723114956736712" />
         <entry key="..\:/CellularApps/Obstacles2/app/src/main/res/layout/activity_game_over.xml" value="0.5" />
         <entry key="..\:/CellularApps/Obstacles2/app/src/main/res/layout/activity_high_scores.xml" value="0.5541666666666667" />
         <entry key="..\:/CellularApps/Obstacles2/app/src/main/res/layout/activity_main.xml" value="0.75" />

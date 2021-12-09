@@ -30,17 +30,19 @@
         android:layout_below="@id/game_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:background="@drawable/gradient_button"
+        android:background="@drawable/button_style"
+        android:foreground="?selectableItemBackground"
         android:fontFamily="@font/sky"
         android:text="Easy"
         android:textSize="100sp"
         android:textColor="#000000"
-        app:backgroundTint="@null" />
+        app:backgroundTint="@null"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/menu_BTN_hard"
-        android:background = "@drawable/gradient_button"
-        app:backgroundTint="@null"
+        android:background = "@drawable/button_style"
+        android:foreground="?selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@id/menu_BTN_easy"
@@ -49,7 +51,9 @@
         android:text="Hard"
         android:fontFamily="@font/sky"
         android:textColor="#000000"
-        android:textSize="100sp"/>
+        android:textSize="100sp"
+        app:backgroundTint="@null"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/menu_BTN_high_scores"
@@ -59,6 +63,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:background="@drawable/gradient_button_top5"
+        android:foreground="?selectableItemBackground"
         android:fontFamily="@font/black_ops_one"
         android:text="High Scores"
         android:textSize="30sp"
