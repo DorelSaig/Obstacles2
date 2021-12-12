@@ -88,7 +88,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_01"
@@ -97,7 +97,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_02"
@@ -106,7 +106,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_03"
@@ -115,7 +115,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_04"
@@ -124,7 +124,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
         </LinearLayout>
 
@@ -142,7 +142,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_11"
@@ -169,7 +169,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_14"
@@ -178,7 +178,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
         </LinearLayout>
 
@@ -223,7 +223,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_24"
@@ -232,7 +232,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
         </LinearLayout>
 
@@ -279,7 +279,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_34"
@@ -288,7 +288,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
         </LinearLayout>
 
@@ -333,7 +333,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
             <ImageView
                 android:id="@+id/panel_IMG_44"
@@ -342,7 +342,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_seagull"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
 
         </LinearLayout>
 
@@ -358,7 +358,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/ic_wheel_left"
                 android:text="Left" />
 
@@ -378,7 +378,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/ic_wheel_right"
                 android:text="Right"
                 />

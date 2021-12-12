@@ -48,7 +48,7 @@ public class Game_Utils {
 
     }
 
-    public void my_Toast_SHORT(String str, Context context){
+    public void myToastSHORT(String str, Context context){
         final Toast toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
         toast.show();
 

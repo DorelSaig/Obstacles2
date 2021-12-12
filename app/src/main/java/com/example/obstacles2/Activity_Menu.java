@@ -23,6 +23,7 @@ public class Activity_Menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        Screen_Utils.hideSystemUI(this);
 
         ImageView panel_IMG_background = findViewById(R.id.panel_IMG_menu_background);
         Glide
@@ -72,7 +73,7 @@ public class Activity_Menu extends AppCompatActivity {
         startActivity(highScoresIntent);
     }
 
-    private void startGame(boolean sensorMode) {
+    public void startGame(boolean sensorMode) {
         Intent gameIntent = new Intent(this, Activity_Game.class);
 
         Bundle bundle = new Bundle();

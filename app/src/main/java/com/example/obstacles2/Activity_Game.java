@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,8 +48,8 @@ public class Activity_Game extends AppCompatActivity {
 
     private Timer display_Real_Timer;
     private Timer game_Speed_Timer = new Timer();
-    int obsChoose;
-    int columnChoose;
+    private int obs_Choose;
+    private int column_Choose;
 
     private Sensors_Utils sensors_utils;
 
@@ -59,6 +58,7 @@ public class Activity_Game extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        Screen_Utils.hideSystemUI(this);
 
         //------- Set Background Image Using Glide --------
         ImageView panel_IMG_background = findViewById(R.id.panel_IMG_background);
@@ -80,7 +80,7 @@ public class Activity_Game extends AppCompatActivity {
             }
         }
 
-        //------- Check Sensor Mode ? -------
+        //------- Check Sensor Mode (?) -------
         if (sensorMode) {
             sensors_utils = new Sensors_Utils(this);
             sensors_utils.setCallBackSensor(callBackSensor);
@@ -180,7 +180,7 @@ public class Activity_Game extends AppCompatActivity {
     }
 
     //------- Player Manual Movement Logic --------
-    private void move(boolean direction) {
+    private void movePlayer(boolean direction) {
 
         if (direction && current <= 3) {
             panel_IMG_airplane[current].setVisibility(View.INVISIBLE);
@@ -218,14 +218,13 @@ public class Activity_Game extends AppCompatActivity {
                 current = 4;
                 panel_IMG_airplane[current].setVisibility(View.VISIBLE);
             }
-
         }
     };
 
     //------- Game UI Logic - First Working on int Matrix --------
     private void logic() {
-        obsChoose = (int) Math.floor(Math.random() * NUM_OF_OBSTACLE_TYPES);
-        columnChoose = (int) Math.floor(Math.random() * NUM_OF_COLUMNS);
+        obs_Choose = (int) Math.floor(Math.random() * NUM_OF_OBSTACLE_TYPES);
+        column_Choose = (int) Math.floor(Math.random() * NUM_OF_COLUMNS);
 
         for (int i = vals.length - 1; i > 0; i--) {
             for (int j = 0; j < vals[0].length; j++) {
@@ -237,9 +236,9 @@ public class Activity_Game extends AppCompatActivity {
             vals[0][i] = 0;
         }
 
-        vals[0][columnChoose] = obsChoose;
+        vals[0][column_Choose] = obs_Choose;
 
-        update_UI_logic();
+        updateUILogic();
     }
 
     //------- Check Collision Logic And Game State --------
@@ -248,9 +247,13 @@ public class Activity_Game extends AppCompatActivity {
 
             Game_Utils.getInstance().vibrate(300);
 
-            Game_Utils.getInstance().playSound(R.raw.sound_hit);
+            if(vals[4][current] == 4){
+                Game_Utils.getInstance().playSound(R.raw.sound_metal_hit);
+            }else {
+                Game_Utils.getInstance().playSound(R.raw.sound_hit);
+            }
 
-            Game_Utils.getInstance().my_Toast_SHORT("Engine " + lives + " Down ", getApplicationContext());
+            Game_Utils.getInstance().myToastSHORT("Engine " + lives + " Down ", getApplicationContext());
 
             lives--;
 
@@ -276,16 +279,23 @@ public class Activity_Game extends AppCompatActivity {
 
     private boolean bonus = false;
     //------- Game UI Logic - Second Working on the ImageView Matrix --------
-    private void update_UI_logic() {
+    private void updateUILogic() {
 
         for (int i = 0; i < path.length; i++) {
             for (int j = 0; j < path[i].length; j++) {
                 ImageView im = path[i][j];
                 if (vals[i][j] == 0) {
                     im.setVisibility(View.INVISIBLE);
-                } else if (vals[i][j] == 1 || vals[i][j] == 3 || vals[i][j] == 4 || vals[i][j] == 2) {
+                    //To make the random more Various I made the chance to get life will be 1/4.
+                } else if (vals[i][j] == 1 || vals[i][j] == 3) {
                     im.setVisibility(View.VISIBLE);
                     im.setImageResource(R.drawable.ic_seagull);
+                } else if(vals[i][j] == 4){
+                    im.setVisibility(View.VISIBLE);
+                    im.setImageResource(R.drawable.ic_drone);
+                } else if(vals[i][j] == 2){
+                    im.setVisibility(View.VISIBLE);
+                    im.setImageResource(R.drawable.ic_skydiver);
                 } else if (vals[i][j] == 5) {
                     if(true) {
                         im.setVisibility(View.VISIBLE);
@@ -313,6 +323,7 @@ public class Activity_Game extends AppCompatActivity {
 
         Intent gameOverIntent = new Intent(Activity_Game.this, Activity_Game_Over.class);
         gameOverIntent.putExtra("Score", count);
+        gameOverIntent.putExtra(SENSOR_MODE, sensorMode);
         startActivity(gameOverIntent);
         this.finish();
 
@@ -331,7 +342,7 @@ public class Activity_Game extends AppCompatActivity {
             public void onClick(View v) {
                 Game_Utils.getInstance().vibrate(100);
                 //Right = True Left = False
-                move(false);
+                movePlayer(false);
             }
         }));
 
@@ -340,7 +351,7 @@ public class Activity_Game extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Game_Utils.getInstance().vibrate(100);
-                move(true);
+                movePlayer(true);
             }
         }));
 
@@ -362,8 +373,6 @@ public class Activity_Game extends AppCompatActivity {
                 }
             }
         }));
-
-
     }
 
     //------- Finding all views By ID --------

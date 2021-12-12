@@ -16,35 +16,53 @@
         android:background="#B0EBF1"
         android:visibility="visible" />
 
-    //------- Game Over Panel --------
+    //------- Game Over Logo --------
 
+    <ImageView
+        android:id="@+id/panel_IMG_logo_gameover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/panel_TXT_score"
+        android:scaleType="fitXY"
+        android:src="@drawable/game_over" />
+
+    //------- Score View --------
+    <TextView
+        android:id="@+id/panel_TXT_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/sky"
+        android:maxLines="1"
+        android:text="Score:"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="90sp"
+        android:textStyle="bold" />
+
+    //------- Game Over Panel --------
     <LinearLayout
         android:id="@+id/main_gameOver_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/panel_TXT_score"
         android:orientation="vertical"
-        android:visibility="visible"
-        >
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="50dp"/>
-
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/panel_ETXT_playerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:ems="10"
-            android:hint="Name"
             android:fontFamily="@font/black_ops_one"
+            android:hint="Name"
             android:inputType="textPersonName"
-            android:textColorHint="#99000000"
             android:textColor="@color/black"
             android:textColorHighlight="#802292EA"
-            />
+            android:textColorHint="#99000000" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/panel_BTN_saveRecord"
@@ -55,8 +73,7 @@
             android:backgroundTint="#1392D6"
             android:fontFamily="@font/black_ops_one"
             android:text="Save"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -66,15 +83,17 @@
             android:orientation="horizontal"
             android:visibility="visible">
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/panel_BTN_restart"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/ic_restart"
-                android:visibility="visible" />
+                android:background="@drawable/ic_back_to_menu"
+                android:visibility="visible"
+                app:backgroundTint="#000000" />
+
 
             <ImageButton
                 android:id="@+id/panel_BTN_exit"
@@ -84,26 +103,12 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/ic_exit"
-                android:visibility="visible"
-                />
+                android:visibility="visible" />
 
         </LinearLayout>
 
-
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/panel_TXT_score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main_gameOver_layout"
 
-        android:fontFamily="@font/sky"
-        android:text="Score:"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="70sp"
-        android:maxLines="1"
-        android:textStyle="bold" />
 
 </RelativeLayout>

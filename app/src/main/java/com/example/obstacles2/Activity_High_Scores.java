@@ -5,22 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.button.MaterialButton;
 
 public class Activity_High_Scores extends AppCompatActivity implements OnMapReadyCallback {
 
-    private Fragment_List fragmentList;
+    private Fragment_List fragment_List;
 
     private GoogleMap mMap;
 
@@ -30,11 +25,12 @@ public class Activity_High_Scores extends AppCompatActivity implements OnMapRead
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_scores);
+        Screen_Utils.hideSystemUI(this);
 
-        fragmentList = new Fragment_List();
-        fragmentList.setActivity(this);
-        fragmentList.setCallBackList(callBackList);
-        getSupportFragmentManager().beginTransaction().add(R.id.frame1, fragmentList).commit();
+        fragment_List = new Fragment_List();
+        fragment_List.setActivity(this);
+        fragment_List.setCallBackList(callBackList);
+        getSupportFragmentManager().beginTransaction().add(R.id.frame1, fragment_List).commit();
 
         panel_BTN_back = findViewById(R.id.panel_BTN_back);
         panel_BTN_back.setOnClickListener(new View.OnClickListener() {
